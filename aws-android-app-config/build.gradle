@@ -1,0 +1,94 @@
+buildscript {
+
+    repositories {
+	mavenCentral()
+    }
+
+    dependencies {
+	classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+
+}
+
+apply plugin: 'android'
+
+    repositories {
+	mavenCentral()
+    }
+
+
+android {
+    compileSdkVersion "Google Inc.:Google APIs:19"
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+	minSdkVersion 11
+	targetSdkVersion 19
+    }
+
+    sourceSets {
+	main {
+	    manifest.srcFile file('AndroidManifest.xml')
+	    java.srcDirs = ['src']
+	    resources.srcDirs = ['src']
+	    res.srcDirs = ['res']
+	    assets.srcDirs = ['assets']
+	}
+    }
+
+    packagingOptions {
+	exclude 'META-INF/DEPENDENCIES'
+	exclude 'META-INF/NOTICE'
+	exclude 'META-INF/LICENSE' 
+        exclude 'META-INF/LICENSE.txt'
+   }
+
+
+   lintOptions {
+          abortOnError false
+      }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("keystore/aws_key")
+            storePassword "2MGL6t6CNDbC7JF"
+            keyAlias "allwomenstalk"
+            keyPassword "2MGL6t6CNDbC7JF"
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.releaseConfig
+            }
+        }
+    }
+
+
+//====android section end====
+}
+
+dependencies {
+    compile project(':Android-PullToRefresh')
+    compile project(':facebook')
+    compile project(':UserVoiceSDK')
+
+    //compile files('libs/android-support-v4.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+    // Support Libraries
+    //compile 'com.android.support:support-v4:19.1.0'
+
+
+    compile ('com.google.android.gms:play-services:4+'){
+	exclude module: 'support-v4'
+    }
+
+    compile ('com.android.support:appcompat-v7:19.1.0') {
+	exclude module: 'support-v4'
+    }
+
+    //compile 'com.android.support:gridlayout-v7:19.0.3'
+    //compile 'com.android.support:mediarouter-v7:19.0.3'
+    //compile 'com.android.support:support-v13:19.0.3'
+
+}

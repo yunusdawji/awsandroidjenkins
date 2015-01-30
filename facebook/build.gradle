@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo1.maven.org/maven2' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+apply plugin: 'android-library'
+
+
+android {
+    compileSdkVersion "Google Inc.:Google APIs:19"
+    buildToolsVersion "19.0.0"
+
+//    sourceSets {
+//        main {
+//            manifest {
+//                srcFile 'AndroidManifest.xml'
+//            }
+//            java {
+//                srcDir 'src'
+///            }
+//            res {
+//                srcDir 'res'
+//            }
+//            assets {
+//                srcDir 'assets'
+//            }
+//            resources {
+//                srcDir 'src'
+//            }
+//            aidl.srcDirs = ['src']
+//        }
+//
+//    }
+
+
+
+
+    sourceSets {
+	main {
+	    manifest.srcFile file('AndroidManifest.xml')
+	    java.srcDirs = ['src']
+	    resources.srcDirs = ['src']
+	    res.srcDirs = ['res']
+	    assets.srcDirs = ['assets']
+	}
+    }
+    lintOptions {
+	abortOnError false
+    }
+
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+    }
+
+    dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    //compile 'com.android.support:support-v4:19.1.0'
+    }
+}
